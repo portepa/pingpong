@@ -54,8 +54,9 @@ public class ClassementController {
 
         String classementText = "🏓 **Classement** 🏓 \n";
         for (ClassementRow cr: allClassementRow) {
-            System.out.println(cr.getPlayer().getName() + ": " + cr.getTotalScore());
-            classementText += "🏓 " + cr.getPlayer().getName() + ": " + cr.getTotalScore() + "pts \n";
+            int pourcentage_victoire = cr.getNbLose() == 0 ? 100 : cr.getNbWin()/(cr.getNbLose()+cr.getNbWin()*100);
+            System.out.println(cr.getPlayer().getName() + ": " + cr.getTotalScore() + "(" + pourcentage_victoire + "%)");
+            classementText += "🏓 " + cr.getPlayer().getName() + ": " + cr.getTotalScore() + "pts (" + pourcentage_victoire + "%)\n";
         }
 
         HashMap<String, String> map = new HashMap<>();

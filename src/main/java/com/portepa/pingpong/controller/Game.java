@@ -4,6 +4,8 @@ import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 @Data
@@ -23,11 +25,14 @@ class Game {
     @JoinColumn(name = "loser_id")
     private Player loser;
 
+    private LocalDateTime dateTime;
+
     Game(Player winner, Player loser, int scoreWinner, int scoreLoser) {
         this.winner = winner;
         this.loser = loser;
         this.scoreWinner = scoreWinner;
         this.scoreLoser= scoreLoser;
+        this.dateTime = LocalDateTime.now();
     }
 
     private int scoreWinner;
