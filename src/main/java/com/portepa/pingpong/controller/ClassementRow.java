@@ -2,8 +2,11 @@ package com.portepa.pingpong.controller;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.previous;
 
 @Data
 public class ClassementRow {
@@ -16,13 +19,16 @@ public class ClassementRow {
         this.nbLose = 0;
         this.totalScore = 0;
         for (Game g: games) {
-            if (g.getWinner().equals(p)) {
-                nbWin += 1;
-                totalScore += 3;
-                this.games.add(g);
-            } else if (g.getLoser().equals(p)) {
-                nbLose += 1;
-                this.games.add(g);
+            // we're adding the game only if it's in the current week
+            if (g.getDateTime() != null &&  g.getDateTime().isAfter(LocalDateTime.now().with(previous(SUNDAY)))) {
+                if (g.getWinner().equals(p)) {
+                    nbWin += 1;
+                    totalScore += 3;
+                    this.games.add(g);
+                } else if (g.getLoser().equals(p)) {
+                    nbLose += 1;
+                    this.games.add(g);
+                }
             }
         }
     }

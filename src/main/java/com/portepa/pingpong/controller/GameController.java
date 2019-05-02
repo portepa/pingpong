@@ -105,9 +105,11 @@ class GameController {
 
             String classementText = "🏓 **Classement** 🏓 \n";
             for (ClassementRow cr: allClassementRow) {
-                int pourcentage_victoire = cr.getNbLose() == 0 ? 100 : cr.getNbWin()/(cr.getNbLose()+cr.getNbWin()*100);
-                System.out.println(cr.getPlayer().getName() + ": " + cr.getTotalScore() + "(" + pourcentage_victoire + "%)");
-                classementText += "🏓 " + cr.getPlayer().getName() + ": " + cr.getTotalScore() + "pts (" + pourcentage_victoire + "%)\n";
+                if (cr.getNbLose() + cr.getNbWin() > 0) {
+                    int pourcentage_victoire = cr.getNbLose() == 0 ? 100 : cr.getNbWin()/(cr.getNbLose()+cr.getNbWin())*100;
+                    System.out.println(cr.getPlayer().getName() + ": " + cr.getTotalScore() + "(" + pourcentage_victoire + "%)");
+                    classementText += "🏓 " + cr.getPlayer().getName() + ": " + cr.getTotalScore() + "pts (" + pourcentage_victoire + "%)\n";   
+                }
             }
 
             HashMap<String, String> map = new HashMap<>();
